@@ -335,6 +335,31 @@ Then re-run `.\setup.ps1`.
 
 ---
 
+### ❌ Error: `403 Forbidden - USAGE_QUOTA_EXCEEDED` or `insufficient GitLab credits`
+This is the most common error after extended use. It means your GitLab Duo trial account has **hit its daily or total AI usage quota**.
+
+**This is NOT a proxy bug.** It is a GitLab account-level restriction.
+
+**Fix Options:**
+
+**Option 1 — Wait for quota reset (easiest):**
+- GitLab resets usage quotas periodically (usually within 24 hours).
+- Just wait and try again the next day.
+
+**Option 2 — Create a fresh GitLab account (instant fix):**
+1. Sign up with a new email at [gitlab.com](https://gitlab.com)
+2. Activate a new **30-day Ultimate Free Trial** (no credit card needed)
+3. Re-authenticate the GitLab CLI with your new account:
+   ```bash
+   glab auth logout
+   glab auth login
+   ```
+4. Run `cg` again — it should work immediately!
+
+> **Tip:** Using a dedicated email (e.g. a Gmail alias like `yourname+gitlab@gmail.com`) makes managing multiple trial accounts easy.
+
+---
+
 ### Still stuck?
 Open an issue on the [GitHub repository](https://github.com/Jaimin-prajapati-ds/gitlab-claude-proxy/issues) with:
 1. Your OS and Node.js version (`node --version`)
