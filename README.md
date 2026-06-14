@@ -1,16 +1,36 @@
-# GitLab Duo ⇄ Claude Code Proxy
+<p align="center">
+  <img src="assets/banner.png" alt="GitLab Duo to Claude Code Proxy" width="100%"/>
+</p>
 
-A lightweight local proxy that bridges Anthropic's Messages API to GitLab Duo's CLI client, enabling you to use **Claude Opus 4.8** (or Sonnet 4.6) for free inside **Claude Code** (with a 30-day GitLab Ultimate trial, no credit card required).
+<h1 align="center">GitLab Duo ⇄ Claude Code Proxy</h1>
+
+<p align="center">
+  <strong>Use Claude Opus 4.8 for FREE in Claude Code — via GitLab Duo's 30-day Ultimate trial. No credit card required.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Jaimin-prajapati-ds/gitlab-claude-proxy/stargazers">
+    <img src="https://img.shields.io/github/stars/Jaimin-prajapati-ds/gitlab-claude-proxy?style=for-the-badge&color=orange" alt="Stars"/>
+  </a>
+  <a href="https://github.com/Jaimin-prajapati-ds/gitlab-claude-proxy/issues">
+    <img src="https://img.shields.io/github/issues/Jaimin-prajapati-ds/gitlab-claude-proxy?style=for-the-badge&color=blue" alt="Issues"/>
+  </a>
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-brightgreen?style=for-the-badge" alt="Platform"/>
+  <img src="https://img.shields.io/badge/Node.js-v16%2B-339933?style=for-the-badge&logo=node.js" alt="Node.js"/>
+  <img src="https://img.shields.io/badge/Claude-Opus%204.8-8A2BE2?style=for-the-badge" alt="Claude"/>
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"/>
+</p>
 
 ---
 
-## Features
+## ✨ Features
 
-- **Zero External Dependencies**: Pure Node.js standard library (no `npm install` needed).
-- **Real-time Streaming (SSE)**: Renders Claude Code's responses instantly line-by-line.
-- **System Prompt Optimization**: Automatically filters out massive system-reminder injections to avoid cluttering context windows and stay within API limits.
-- **Dynamic CWD Resolution**: Automatically routes commands to your active Git repository workspace so GitLab Duo has the correct project context.
-- **Windows Silent Background Runner**: Starts hidden in the background without spawning cluttering terminal windows.
+- 🚀 **Zero External Dependencies** — Pure Node.js standard library (`no npm install` needed)
+- ⚡ **Real-time Streaming (SSE)** — Renders Claude Code's responses instantly line-by-line
+- 🧠 **Smart Prompt Filtering** — Automatically strips massive system-reminder injections to stay within context limits
+- 📁 **Dynamic CWD Resolution** — Auto-routes to your active Git workspace for correct project context
+- 🪟 **Silent Background Runner** — Starts hidden on Windows with no terminal window clutter
+- 🌐 **Cross-Platform** — Works on Windows, macOS, and Linux
 
 ---
 
