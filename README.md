@@ -336,21 +336,19 @@ Then re-run `.\setup.ps1`.
 ---
 
 ### ❌ Error: `403 Forbidden - USAGE_QUOTA_EXCEEDED` or `insufficient GitLab credits`
-This is the most common error after extended use. It means your GitLab Duo trial account has **hit its daily AI usage quota**.
+This is the most common error after extended use. It means your GitLab Duo trial account has **exhausted its AI usage quota**.
 
-**This is NOT a proxy bug.** It is a GitLab account-level restriction.
-
-> **Why does this happen?** The proxy uses `glab duo cli run --goal` which internally calls GitLab's **Duo Workflow API** (`/api/v4/ai/duo_workflows/`). This API has a separate and stricter quota than the regular interactive chat. GitLab's trial accounts have limited credits for the Workflow API endpoint.
+**This is NOT a proxy bug.** The quota is **account-wide** — once exhausted, both the proxy (`--goal` mode) **and** interactive `glab duo cli run` will fail with the same `403` error. There is no workaround other than switching accounts or waiting.
 
 **Fix Options:**
 
-**Option 1 — Wait for quota reset (easiest):**
-- GitLab resets usage quotas periodically (usually within 24 hours).
+**Option 1 — Wait for quota reset:**
+- GitLab resets usage quotas periodically (usually within **24 hours**).
 - Just wait and try again the next day.
 
 **Option 2 — Create a fresh GitLab account using a Gmail alias (instant fix):**
 
-Gmail supports "plus aliases" — `yourname+anything@gmail.com` delivers to your **same inbox** but registers as a new email on GitLab:
+Gmail supports "plus aliases" — `yourname+anything@gmail.com` delivers to your **same inbox** but registers as a completely new email on GitLab:
 
 1. Sign up at [gitlab.com](https://gitlab.com) using `yourname+gitlab2@gmail.com`
 2. Activate a new **30-day Ultimate Free Trial** (no credit card needed)
@@ -359,25 +357,9 @@ Gmail supports "plus aliases" — `yourname+anything@gmail.com` delivers to your
    glab auth logout
    glab auth login
    ```
-4. Run `cg` again — it should work immediately!
+4. Run `cg` again — it works immediately!
 
-> **Pro Tip:** You can keep rotating: `+gitlab2`, `+gitlab3`, `+gitlab4`... each is a fresh account with a fresh quota!
-
-**Option 3 — Use `glab duo cli run` directly in interactive mode (best fallback!):**
-
-When the proxy quota (`duo_workflows` API) is exhausted, you can still use GitLab Duo directly in **interactive mode** — which uses a **different, higher-limit endpoint**:
-
-```bash
-# Navigate into any Git project folder first
-cd /path/to/your/project
-
-# Launch interactive GitLab Duo CLI session
-glab duo cli run
-```
-
-This opens an interactive terminal session where you can ask anything directly. This mode has a significantly higher (or unlimited) usage limit compared to the headless `--goal` mode used by the proxy.
-
-> **Note:** Interactive mode requires manual input. You won't have the seamless Claude Code editor integration, but you still get full access to Claude Opus 4.8 when proxy quota is exhausted.
+> **Pro Tip:** You can keep rotating aliases: `+gitlab2`, `+gitlab3`, `+gitlab4`... each is a fully fresh account with a fresh quota!
 
 ---
 
