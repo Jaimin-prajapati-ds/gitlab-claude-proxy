@@ -154,6 +154,81 @@ If you completed the automated setup (Option A or B), the following commands are
 
 ---
 
+## 🔄 Auto-Start on System Boot (Optional)
+
+### 1. The `cg` Alias (No Setup Needed)
+If you use the **`cg`** alias to run Claude Code, **you do not need to configure anything**. The `cg` command automatically checks if the proxy is running and starts it silently in the background whenever you run it.
+
+### 2. Auto-Run on OS Boot (For Direct `claude` CLI Usage)
+If you want to use the standard `claude` command directly instead of `cg` and want the proxy to always be running in the background automatically when your computer starts:
+
+#### 🪟 Windows Setup:
+1. Press `Win + R`, type `shell:startup` and press **Enter**. This opens your Startup folder.
+2. Right-click inside the folder and select **New** -> **Shortcut**.
+3. In the location field, enter:
+   ```cmd
+   wscript.exe "C:\Path\To\Your\gitlab-claude-proxy\start-hidden.vbs"
+   ```
+   *(Be sure to replace `C:\Path\To\Your\gitlab-claude-proxy` with the absolute path where you downloaded this repository)*.
+4. Click **Next**, name the shortcut `GitLab Duo Proxy`, and click **Finish**.
+
+#### 🍎 macOS Setup:
+You can register a background LaunchAgent to start the proxy on login:
+1. Create a file named `com.gitlab-claude-proxy.plist` in `~/Library/LaunchAgents/` with the following content:
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   <plist version="1.0">
+   <dict>
+       <key>Label</key>
+       <string>com.gitlab-claude-proxy</string>
+       <key>ProgramArguments</key>
+       <array>
+           <string>/usr/local/bin/node</string>
+           <string>/Users/YOUR_USER_NAME/gitlab-claude-proxy/server.js</string>
+       </array>
+       <key>RunAtLoad</key>
+       <true/>
+       <key>KeepAlive</key>
+       <true/>
+   </dict>
+   </plist>
+   ```
+   *(Replace `/usr/local/bin/node` with your actual Node path from `which node`, and `/Users/YOUR_USER_NAME/...` with the absolute path to your `server.js`)*.
+2. Load the LaunchAgent by running:
+   ```bash
+   launchctl load ~/Library/LaunchAgents/com.gitlab-claude-proxy.plist
+   ```
+
+#### 🐧 Linux Setup (systemd User Service):
+1. Create a directory for user services:
+   ```bash
+   mkdir -p ~/.config/systemd/user/
+   ```
+2. Create `~/.config/systemd/user/gitlab-claude-proxy.service` with:
+   ```ini
+   [Unit]
+   Description=GitLab Duo to Claude Code Proxy
+   After=network.target
+
+   [Service]
+   ExecStart=/usr/bin/node /home/YOUR_USER_NAME/gitlab-claude-proxy/server.js
+   Restart=always
+
+   [Install]
+   WantedBy=default.target
+   ```
+   *(Replace paths to `node` and `server.js` with your system's actual absolute paths)*.
+3. Enable and start the service:
+   ```bash
+   systemctl --user daemon-reload
+   ```
+   ```bash
+   systemctl --user enable gitlab-claude-proxy.service --now
+   ```
+
+---
+
 ## How it Works Under the Hood
 
 ```
