@@ -56,9 +56,9 @@ Because the GitLab CLI requires a Git project workspace context:
 
 ### Step 4: Configure the Proxy (Automated & Manual Setup)
 
-Clone or download this repository to a folder of your choice (e.g., `%USERPROFILE%\gitlab-claude-proxy`).
+Clone or download this repository to a folder of your choice (e.g., `~/gitlab-claude-proxy`).
 
-#### Option A: Windows Automated Setup (Recommended)
+#### Option A: Windows Automated Setup
 1. Open PowerShell and navigate to the proxy folder.
 2. Run the installer script:
    ```powershell
@@ -68,7 +68,17 @@ Clone or download this repository to a folder of your choice (e.g., `%USERPROFIL
 3. Restart your PowerShell terminal or run `. $PROFILE` to apply configuration.
 4. Run `cg` inside any Git repository to launch Claude Code with GitLab Duo!
 
-#### Option B: Manual Setup (Cross-Platform / Custom Shells)
+#### Option B: macOS & Linux Automated Setup
+1. Open your terminal (Bash or Zsh) and navigate to the proxy folder.
+2. Make the installer script executable and run it:
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
+3. Restart your terminal session or reload your shell profile (e.g., `source ~/.zshrc` or `source ~/.bashrc`).
+4. Run `cg` inside any Git repository to launch Claude Code!
+
+#### Option C: Manual Setup (Cross-Platform / Custom Shells)
 
 ##### 1. Configure Claude Code Settings
 Create or modify your Claude Code settings file at `~/.claude/settings.json`:
@@ -113,9 +123,9 @@ claude --model claude-opus-4-8
 
 ---
 
-## Daily Usage & Shortcuts (Windows)
+## Daily Usage & Shortcuts (Cross-Platform)
 
-If you completed the Windows automated setup, the following functions are added to your PowerShell environment:
+If you completed the automated setup (Option A or B), the following commands are added to your environment:
 
 - `cg [arguments]`: Automatically saves your current directory path to `~/.cg-cwd.txt`, starts the Node proxy silently in the background if it isn't running, and launches Claude Code.
   - *Example*: `cg --print "write a quick python script to parse a csv"`
