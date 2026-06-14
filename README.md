@@ -21,6 +21,9 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"/>
 </p>
 
+> [!TIP]
+> **Enjoying this tool?** Don't forget to **Star ⭐ this repository** on GitHub to show your support and help other developers find it!
+
 ---
 
 ## ✨ Features
