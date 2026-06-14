@@ -152,6 +152,99 @@ If you completed the automated setup (Option A or B), the following commands are
 
 ---
 
+## Troubleshooting
+
+### ❌ `glab duo cli run` command not found
+- Make sure `glab` is properly installed and accessible in your PATH.
+- Run `glab --version` to verify. If it fails, reinstall it:
+  - **Windows**: `winget install GitLab.GLAB`
+  - **macOS**: `brew install glab`
+  - **Linux**: `sudo apt install glab` or download from [GitLab CLI releases](https://gitlab.com/gitlab-org/cli/-/releases)
+- After installing, restart your terminal.
+
+---
+
+### ❌ `glab duo cli run` says "403 Forbidden" or "Unauthorized"
+- Your GitLab account does not have an **Ultimate plan** or your trial has expired.
+- Go to [gitlab.com/-/trials](https://gitlab.com/-/trials) and start/renew the 30-day Ultimate trial.
+- After activating, run `glab auth logout` then `glab auth login` to refresh your session.
+
+---
+
+### ❌ `glab duo cli run` says "not inside a git repository"
+- GitLab Duo requires a valid Git project folder context.
+- Always run `cg` (or the proxy) from **inside a git repository** (a folder with a `.git` directory).
+- To initialize a test repo anywhere:
+  ```bash
+  mkdir my-test && cd my-test && git init
+  ```
+  Then run `cg` from inside `my-test`.
+
+---
+
+### ❌ Proxy starts but Claude Code says "connection refused" or "API error"
+- Make sure the proxy is running: Open a browser and visit `http://localhost:3456/v1/models` — it should return a JSON list.
+- If it doesn't respond, start the proxy manually:
+  ```bash
+  node server.js
+  ```
+- Then in another terminal, run `claude --model claude-opus-4-8`.
+
+---
+
+### ❌ Claude Code gives empty or garbled responses
+- This is usually a GitLab Duo parsing issue. The proxy tries multiple strategies to extract the response.
+- Try running the raw command to see what GitLab returns:
+  ```bash
+  glab duo cli run --model claude_opus_4_8 --goal "Say hello"
+  ```
+- If the output is blank or an error, the issue is on the GitLab Duo side (check your trial status).
+
+---
+
+### ❌ Windows: `cg` command not recognized
+- Make sure `setup.ps1` ran successfully and the profile was updated.
+- Reload your profile: `. $PROFILE`
+- Or restart PowerShell completely.
+- Verify the `cg` function exists: `Get-Command cg`
+
+---
+
+### ❌ macOS/Linux: `cg` command not recognized
+- Make sure `setup.sh` ran and your shell profile (`.zshrc` or `.bashrc`) was updated.
+- Reload it: `source ~/.zshrc` or `source ~/.bashrc`
+- Verify `cg` exists: `type cg`
+
+---
+
+### ❌ `setup.ps1` gives "ExecutionPolicy" error on Windows
+Run this first in PowerShell:
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process
+```
+Then re-run `.\setup.ps1`.
+
+---
+
+### ❌ Claude Code keeps asking for an API key / "Invalid API key"
+- Make sure `~/.claude/settings.json` exists and has the correct content (run `setup.ps1` or `setup.sh` again).
+- Or manually set environment variables before launching:
+  ```bash
+  export ANTHROPIC_BASE_URL="http://127.0.0.1:3456"
+  export ANTHROPIC_API_KEY="gitlab-proxy"
+  claude --model claude-opus-4-8
+  ```
+
+---
+
+### Still stuck?
+Open an issue on the [GitHub repository](https://github.com/Jaimin-prajapati-ds/gitlab-claude-proxy/issues) with:
+1. Your OS and Node.js version (`node --version`)
+2. The exact error message
+3. Output of `glab duo cli run --model claude_opus_4_8 --goal "test"`
+
+---
+
 ## Disclaimers & Security
 
 - **Completely Local**: The proxy server operates strictly on localhost (`127.0.0.1:3456`). No external entities receive your data except GitLab's official API endpoints.
