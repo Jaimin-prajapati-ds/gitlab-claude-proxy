@@ -1,0 +1,6 @@
+# GitLab Duo Claude Code Proxy Gitignore
+.cg-cwd.txt
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
