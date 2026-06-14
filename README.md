@@ -147,3 +147,9 @@ If you completed the Windows automated setup, the following functions are added 
 - **Completely Local**: The proxy server operates strictly on localhost (`127.0.0.1:3456`). No external entities receive your data except GitLab's official API endpoints.
 - **Privacy Safe**: None of your local paths, personal names, or authentication keys are stored or shared.
 - **Educational Use**: This project is for personal educational testing of Claude Code integrations. Use in compliance with GitLab's Terms of Service.
+
+---
+
+## AI Prompt Template
+
+If you want to recreate or customize this setup using another AI assistant (like Cursor, Claude, ChatGPT, or Gemini), we have provided a ready-to-use prompt template in the [PROMPT.md](PROMPT.md) file.
